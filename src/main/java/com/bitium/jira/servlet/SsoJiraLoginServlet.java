@@ -59,8 +59,10 @@ public class SsoJiraLoginServlet extends SsoLoginServlet {
 
 			UserManager userManager = ComponentAccessor.getUserManager();
 
-			String fullName = credential.getAttributeAsString("cn");
-			String email = credential.getAttributeAsString("mail");
+			String nameAttribute = saml2Config.getNameAttribute();
+			String mailAttribute = saml2Config.getMailAttribute();
+			String fullName = credential.getAttributeAsString(nameAttribute);
+			String email = credential.getAttributeAsString(mailAttribute);
 			UserDetails newUserDetails = new UserDetails(username, username).withEmail(email);
 			ApplicationUser newUser = userManager.createUser(newUserDetails);
 

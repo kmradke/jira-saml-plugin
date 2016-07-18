@@ -20,6 +20,8 @@ public class ConfigureAction extends JiraWebActionSupport {
 	private String logoutUrl;
 	private String entityId;
 	private String uidAttribute;
+	private String nameAttribute;
+	private String mailAttribute;
 	private String autoCreateUser;
     private String defaultAutoCreateUserGroup;
 	private String x509Certificate;
@@ -67,6 +69,22 @@ public class ConfigureAction extends JiraWebActionSupport {
 
 	public void setUidAttribute(String uidAttribute) {
 		this.uidAttribute = uidAttribute;
+	}
+
+	public String getNameAttribute() {
+		return nameAttribute;
+	}
+
+	public void setNameAttribute(String nameAttribute) {
+		this.nameAttribute = nameAttribute;
+	}
+
+	public String getMailAttribute() {
+		return mailAttribute;
+	}
+
+	public void setMailAttribute(String mailAttribute) {
+		this.mailAttribute = mailAttribute;
 	}
 
 	public String getAutoCreateUser() {
@@ -164,6 +182,12 @@ public class ConfigureAction extends JiraWebActionSupport {
 		if (StringUtils.isBlank(getUidAttribute())) {
 			addErrorMessage(getText("saml2Plugin.admin.uidAttributeEmpty"));
 		}
+		if (StringUtils.isBlank(getNameAttribute())) {
+			addErrorMessage(getText("saml2Plugin.admin.nameAttributeEmpty"));
+		}
+		if (StringUtils.isBlank(getMailAttribute())) {
+			addErrorMessage(getText("saml2Plugin.admin.mailAttributeEmpty"));
+		}
 		if (StringUtils.isBlank(getX509Certificate())) {
 			addErrorMessage(getText("saml2Plugin.admin.x509CertificateEmpty"));
 		} else {
@@ -193,6 +217,8 @@ public class ConfigureAction extends JiraWebActionSupport {
 			setLogoutUrl(saml2Config.getLogoutUrl());
 			setEntityId(saml2Config.getIdpEntityId());
 			setUidAttribute(saml2Config.getUidAttribute());
+			setNameAttribute(saml2Config.getNameAttribute());
+			setMailAttribute(saml2Config.getMailAttribute());
 			setX509Certificate(saml2Config.getX509Certificate());
 			String idpRequired = saml2Config.getIdpRequired();
 			if (idpRequired != null) {
@@ -220,6 +246,8 @@ public class ConfigureAction extends JiraWebActionSupport {
 		saml2Config.setLogoutUrl(getLogoutUrl());
 		saml2Config.setEntityId(getEntityId());
 		saml2Config.setUidAttribute(getUidAttribute());
+		saml2Config.setNameAttribute(getNameAttribute());
+		saml2Config.setMailAttribute(getMailAttribute());
 		saml2Config.setX509Certificate(getX509Certificate());
 		saml2Config.setIdpRequired(getIdpRequired());
 		saml2Config.setAutoCreateUser(getAutoCreateUser());
