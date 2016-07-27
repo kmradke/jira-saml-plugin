@@ -23,28 +23,20 @@
 
     <input type="hidden" name="submitAction" value="submit"/>
 
-    #set($urlPrefix = "http://")
-    #if ($req.secure)
-        #set($urlPrefix = "https://")
-    #end
+    #set($basePrefix = $applicationProperties.getString("jira.baseurl"))
 
     <div class="field-label">$i18n.getText("saml2plugin.admin.field.samlEndpoint")</div>
     <div>
         <input class="field-input" id="samlEndpoint" type="text" disabled="disabled"
-               value="$urlPrefix${req.serverName}:${req.serverPort}${req.contextPath}/plugins/servlet/saml/auth">
-        <input class="aui-button aui-button-primary" id="copy-button" value="Copy"
-               style="font-size:12px;margin-left:-65px;width:55px;padding-bottom:2px;"/>
-            <span id="endpoint-copied"
-                  style="visibility:hidden;color:grey;font-size:12px;margin-left:10px;">$i18n.getText(
-                "saml2plugin.admin.endpoint-copied")</span>
+               value="${basePrefix}/plugins/servlet/saml/auth">
     </div>
     <div class="field-desc">$i18n.getText("saml2plugin.admin.field.samlEndpoint.desc")</div>
     <div class="field-label">$i18n.getText("saml2plugin.admin.field.loginUrl")</div>
     <input class="field-input" type="text" name="loginUrl" id="loginUrl" value="$textutils.htmlEncode( $loginUrl )"/>
     <div class="field-desc">$i18n.getText("saml2plugin.admin.field.loginUrl.desc")</div>
-##        <div class="field-label">$i18n.getText("saml2plugin.admin.field.logoutUrl")</div>
-##        <input class="field-input" type="text" name="logoutUrl" id="logoutUrl" value="$textutils.htmlEncode( $logoutUrl )"/>
-##        <div class="field-desc">$i18n.getText("saml2plugin.admin.field.logoutUrl.desc")</div>
+    <div class="field-label">$i18n.getText("saml2plugin.admin.field.logoutUrl")</div>
+    <input class="field-input" type="text" name="logoutUrl" id="logoutUrl" value="$textutils.htmlEncode( $logoutUrl )"/>
+    <div class="field-desc">$i18n.getText("saml2plugin.admin.field.logoutUrl.desc")</div>
     <div class="field-label">$i18n.getText("saml2plugin.admin.field.uidAttribute")</div>
     <input class="field-input" type="text" name="uidAttribute" id="uidAttribute"
            value="$textutils.htmlEncode( $uidAttribute)"/>
