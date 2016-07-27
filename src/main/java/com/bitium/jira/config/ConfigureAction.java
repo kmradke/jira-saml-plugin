@@ -152,7 +152,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 
 	public void doValidation() {
 		setSuccess("");
-		if (getSubmitAction() == null || getSubmitAction().equals("")) {
+        if (getSubmitAction() == null || getSubmitAction().isEmpty()) {
 			return;
 		}
 		if (!isSystemAdministrator()) {
@@ -194,6 +194,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 			try {
 				X509Utils.generateX509Certificate(getX509Certificate());
 			} catch (Exception e) {
+                log.error(e);
 				addErrorMessage(getText("saml2Plugin.admin.x509CertificateInvalid"));
 			}
 		}
@@ -212,7 +213,7 @@ public class ConfigureAction extends JiraWebActionSupport {
 
 
 	public String doExecute() throws Exception {
-		if (getSubmitAction() == null || getSubmitAction().equals("")) {
+        if (getSubmitAction() == null || getSubmitAction().isEmpty()) {
 			setLoginUrl(saml2Config.getLoginUrl());
 			setLogoutUrl(saml2Config.getLogoutUrl());
 			setEntityId(saml2Config.getIdpEntityId());
